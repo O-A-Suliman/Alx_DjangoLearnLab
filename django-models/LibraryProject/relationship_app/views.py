@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render ,redirect
 from .models import Library, Book
 from django.views.generic.detail import DetailView
 from django.views.generic import CreateView
@@ -7,10 +7,16 @@ from django.urls import reverse_lazy
 from django.contrib.auth import login  
 
 
-class RegisterView(CreateView):
-    form_class = UserCreationForm             
-    template_name = "relationship_app/register.html"
-    success_url = reverse_lazy('login')        
+def register(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    return render(request, 'relationship_app/register.html', {'form': form})       
 
 def list_books(request):
     books = Book.objects.all()
