@@ -18,6 +18,7 @@ class Book(models.Model):
             ("can_add_book", "Can add a new book"),
             ("can_change_book", "Can edit book details"),
             ("can_delete_book", "Can delete a book"),
+            ("can_view_book", "Can view book"),
         ]
 
     def __str__(self):
@@ -60,8 +61,8 @@ def create_or_save_user_profile(sender, instance, created, **kwargs):
 
 
 class CustomUser(AbstractUser):
-    date_of_birth=models.models.DateField(("Date of birth"), auto_now=False, auto_now_add=False)
-    profile_photo=models.ImageField()
+    date_of_birth = models.DateField(null=True, blank=True)
+    profile_photo=models.ImageField(null=True, blank=True)
 
 from django.contrib.auth.models import BaseUserManager
 

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import CustomUser
+from django.apps import apps
 
 class CustomUserAdmin(UserAdmin):
     fieldsets = UserAdmin.fieldsets + (
@@ -13,4 +14,13 @@ class CustomUserAdmin(UserAdmin):
     search_fields = ['username', 'email']
 
 admin.site.register(CustomUser, CustomUserAdmin)
+
+
+app = apps.get_app_config('bookshelf')
+
+for model_name, model in app.models.items():
+    try:
+        admin.site.register(model)
+    except admin.sites.AlreadyRegistered:
+        pass
 
