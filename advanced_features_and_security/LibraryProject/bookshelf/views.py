@@ -68,7 +68,7 @@ def list_books(request):
     Securely fetch all books using ORM (safe from SQL injection).
     """
     books = Book.objects.all()
-    return render(request, 'bookshelf/list_books.html', {'books': books})
+    return render(request, 'bookshelf/book_list.html', {'books': books})
 
 class LibraryDetailView(DetailView):
     model = Library
