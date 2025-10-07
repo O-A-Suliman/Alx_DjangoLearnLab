@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth import login  
 from django.contrib.auth.decorators import user_passes_test, permission_required
 from django.views.decorators.csrf import csrf_protect  
-from .forms import BookForm 
+from .forms import ExampleForm
 
 # ==============================
 # Role check helpers
@@ -86,12 +86,12 @@ def can_create(request):
     Secure book creation with CSRF protection and form validation.
     """
     if request.method == "POST":
-        form = BookForm(request.POST)
+        form = ExampleForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect("book_list")
     else:
-        form = BookForm()
+        form = ExampleForm()
     return render(request, "bookshelf/add_book.html", {"form": form})
 
 @csrf_protect
@@ -102,12 +102,12 @@ def edit_book(request, book_id):
     """
     book = get_object_or_404(Book, id=book_id)
     if request.method == "POST":
-        form = BookForm(request.POST, instance=book)
+        form = ExampleForm(request.POST, instance=book)
         if form.is_valid():
             form.save()
             return redirect("book_list")
     else:
-        form = BookForm(instance=book)
+        form = ExampleForm(instance=book)
     return render(request, "bookshelf/edit_book.html", {"form": form, "book": book})
 
 @csrf_protect
