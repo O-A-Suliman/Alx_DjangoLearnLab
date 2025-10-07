@@ -56,8 +56,8 @@ class LibraryDetailView(DetailView):
     context_object_name = "library"
 
 
-@permission_required('bookshelf.can_add_book', raise_exception=True)
-def add_book(request):
+@permission_required('bookshelf.can_create', raise_exception=True)
+def can_create(request):
     if request.method == "POST":
         title = request.POST.get("title")
         author = request.POST.get("author")
