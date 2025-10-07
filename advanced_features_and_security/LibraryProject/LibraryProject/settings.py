@@ -26,6 +26,9 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.yourdomain.com']
 
 # Redirect all HTTP requests to HTTPS
 SECURE_SSL_REDIRECT = True  # Forces HTTPS on all requests
+# Tell Django how to detect HTTPS when behind a proxy (like Nginx)
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 
 # HTTP Strict Transport Security (HSTS)
 SECURE_HSTS_SECONDS = 31536000  # 1 year
